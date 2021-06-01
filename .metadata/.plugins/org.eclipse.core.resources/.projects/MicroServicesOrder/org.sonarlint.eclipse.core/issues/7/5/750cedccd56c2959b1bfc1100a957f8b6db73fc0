@@ -1,0 +1,13 @@
+
+o
+java:S1128">Remove this unused import 'com.example.demo.entity.Inventory'.(Ï«ƒ„ûÿÿÿÿH›RMINORZ
+CODE_SMELL
+i	java:S106?"9Replace this use of System.out or System.err by a logger.(¾‰é“ûÿÿÿÿHœRMAJORZ
+CODE_SMELL
+d	java:S106*"9Replace this use of System.out or System.err by a logger.(ÔÇëÅHRMAJORZ
+CODE_SMELL
+d	java:S106@"9Replace this use of System.out or System.err by a logger.(°…‡HžRMAJORZ
+CODE_SMELL
+o
+java:S1128">Remove this unused import 'com.example.demo.dto.InventoryDTO'.(îÖýèÿÿÿÿÿHŸRMINORZ
+CODE_SMELL

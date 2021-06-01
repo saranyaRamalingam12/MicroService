@@ -1,0 +1,5 @@
+package com.orderhistory.entity;
+
+public class OrderDetails {
+
+}

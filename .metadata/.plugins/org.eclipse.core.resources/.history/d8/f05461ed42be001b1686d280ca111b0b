@@ -1,0 +1,11 @@
+package com.orderhistory.serviceinteractionimp;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.serviceinteraction.ItemService;
+
+@Service
+public class ItemServiceImpl implements ItemService 
+{
+
+}

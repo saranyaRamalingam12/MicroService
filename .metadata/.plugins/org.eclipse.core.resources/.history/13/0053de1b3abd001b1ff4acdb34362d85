@@ -1,0 +1,28 @@
+package com.login.serviceinterface;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.login.dto.UserDTO;
+import com.login.entity.Address;
+import com.login.entity.User;
+
+@Service
+public interface UserService 
+{	
+	public Optional<User> findId(Long id);
+	
+	public User checkUserNameExists(User user);
+	
+	public void saveUser(User user);
+	
+	public User mapUserDtoToUserEntity(User user, UserDTO userDTO);
+	
+	public UserDTO mapUserEntityToUserDTO(User user, UserDTO userDTO);
+	
+	public User checkUserLogin(String tempName, String tempPassword);
+	
+	public void mapAddressDTOToAddressEntity(UserDTO userDTO, Address address); 
+	
+}

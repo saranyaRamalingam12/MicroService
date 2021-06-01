@@ -1,0 +1,33 @@
+package com.orderhistory.client;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.UserDTO;
+
+@Service
+public class LoginServiceImpl implements LoginService
+{
+	private static final Logger LOGGER=LoggerFactory.getLogger(LoginServiceImpl.class);
+	@Autowired RestTemplate restTemplate;
+	@Autowired UserDTO userDTO;
+
+	@Override
+	public UserDTO findUserById(Long userId) {
+		LOGGER.info("Service Call to UserLogin Service to get Address");
+		String url="http://localhost:8081/api/order/login/getUserById/{id}";
+		return  restTemplate.getForObject(url, UserDTO.class,userId);
+	}
+
+	@Override
+	public void mapAddressDTOToEntity(UserDTO userDTO) 
+	{
+		LOGGER.info("Service Call to UserLogin Service to save the  Address");
+		String url="http://localhost:8081/api/order/login/updateAddressInUser";
+		restTemplate.postForObject(url,userDTO, UserDTO.class);//check for void case
+	}
+
+}

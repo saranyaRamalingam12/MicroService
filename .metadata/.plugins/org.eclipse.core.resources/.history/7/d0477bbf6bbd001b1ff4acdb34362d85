@@ -1,0 +1,11 @@
+package com.cart.serviceInteractionInterface;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.serviceInteractionImpl.ProductService;
+
+@Service
+public class ProductServiceImpl implements ProductService 
+{
+
+}

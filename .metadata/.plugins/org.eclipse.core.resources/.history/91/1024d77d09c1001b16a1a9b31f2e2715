@@ -1,0 +1,38 @@
+package com.orderhistory.client;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.CartDTO;
+
+@Service
+public class CartServiceImpl implements CartService
+{
+	@Autowired RestTemplate restTemplate;
+	@Autowired CartDTO cartDTO;	
+	
+	
+	@Override
+	public CartDTO findByCartId(Long cartId) 
+	{
+		String url="http://localhost:8084/api/order/ItemAndCart/findCartById/{cartId}";
+		return  restTemplate.getForObject(url, CartDTO.class,cartId);
+		 
+	}
+
+	@Override
+	public void productBlockRemoval(CartDTO cartDTO) 
+	{
+		String url="http://localhost:8084/api/order/ItemAndCart/productBlockRemoval";
+		restTemplate.postForObject(url,cartDTO, CartDTO.class);
+	}
+
+	@Override
+	public void productBlockRemovalPaymentFailure(CartDTO cartDTO) {
+		String url="http://localhost:8084/api/order/ItemAndCart/productBlockRemovalPaymentFailure";
+		restTemplate.postForObject(url,cartDTO, CartDTO.class);
+		
+	}
+
+}

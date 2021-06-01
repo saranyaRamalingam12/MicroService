@@ -1,0 +1,8 @@
+package com.orderhistory.serviceinteractionimp;
+
+import com.orderhistory.serviceinteraction.ProductService;
+
+public class ProductServiceImpl implements ProductService 
+{
+
+}

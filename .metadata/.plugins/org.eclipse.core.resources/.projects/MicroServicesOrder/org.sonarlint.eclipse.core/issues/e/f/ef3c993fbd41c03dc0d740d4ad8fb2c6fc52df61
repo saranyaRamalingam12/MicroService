@@ -1,0 +1,12 @@
+
+\
+java:S36552"7Call "Optional#isPresent()" before accessing the value.(Ìœà›HüRMAJORZBUG
+^
+java:S11727"2Remove this unused method parameter "modelMapper".(–ñHıRMAJORZ
+CODE_SMELL
+g	java:S125:"<This block of commented-out lines of code should be removed.(˜ö ¨HÿRMAJORZ
+CODE_SMELL
+l	java:S125E"<This block of commented-out lines of code should be removed.(£ô²‚úÿÿÿÿH€RMAJORZ
+CODE_SMELL
+l	java:S125W"<This block of commented-out lines of code should be removed.(•Ü£¦şÿÿÿÿHRMAJORZ
+CODE_SMELL

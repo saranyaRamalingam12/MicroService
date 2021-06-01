@@ -1,0 +1,5 @@
+package com.orderhistory.serviceinterface;
+
+public interface OrderService {
+
+}

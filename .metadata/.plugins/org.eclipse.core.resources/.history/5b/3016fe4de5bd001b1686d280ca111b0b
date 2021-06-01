@@ -1,0 +1,6 @@
+package com.orderhistory.entity;
+
+public class AdminHistory 
+{
+	
+}

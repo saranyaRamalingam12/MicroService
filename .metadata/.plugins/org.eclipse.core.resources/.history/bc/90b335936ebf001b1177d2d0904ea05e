@@ -1,0 +1,14 @@
+package com.orderhistory.serviceinteraction;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.ItemDTO;
+
+@Service
+public interface ItemService {
+
+	void removeRefernceOfItemAndAmountReductionInCart(Long cartId);
+
+}

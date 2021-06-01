@@ -1,0 +1,13 @@
+
+|
+java:S1128"PRemove this unused import 'com.fasterxml.jackson.annotation.ObjectIdGenerators'.(èîíH¨RMINORZ
+CODE_SMELL
+€
+java:S1128"ORemove this unused import 'com.fasterxml.jackson.annotation.JsonBackReference'.(»Ôœ¿ıÿÿÿÿH©RMINORZ
+CODE_SMELL
+z
+java:S1128"NRemove this unused import 'com.fasterxml.jackson.annotation.JsonIdentityInfo'.(—éÑğHªRMINORZ
+CODE_SMELL
+v
+java:S1128"ERemove this unused import 'org.springframework.stereotype.Component'.(Ş÷Ñ¸ÿÿÿÿÿH«RMINORZ
+CODE_SMELL

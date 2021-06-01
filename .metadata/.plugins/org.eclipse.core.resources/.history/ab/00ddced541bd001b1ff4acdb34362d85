@@ -1,0 +1,18 @@
+package com.cart.serviceinterface;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.SingleItemDTO;
+import com.cart.entity.Cart;
+import com.cart.entity.Item;
+
+
+@Service
+public interface ItemService 
+{	
+	public Cart savingNewUserToCart(SingleItemDTO singleItemDTO, Cart cart, ModelMapper modelMapper);
+	
+	public Item mapSingleITemDTOtoItem(Item item, SingleItemDTO singleItemDTO, ModelMapper modelMapper) ;
+
+}

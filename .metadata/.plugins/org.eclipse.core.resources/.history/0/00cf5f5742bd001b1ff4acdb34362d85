@@ -1,0 +1,15 @@
+package com.cart.serviceinterface;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.SingleItemDTO;
+import com.cart.dto.UserDTO;
+
+@Service
+public interface CartService 
+{
+	
+	public UserDTO getUserFromSingleItem(SingleItemDTO singleItemDTO);
+	
+
+}

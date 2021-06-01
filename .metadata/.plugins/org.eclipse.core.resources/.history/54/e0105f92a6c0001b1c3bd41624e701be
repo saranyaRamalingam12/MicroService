@@ -1,0 +1,10 @@
+package com.productandinventory.exceptionhandling;
+
+public class ProductException extends RuntimeException 
+{
+
+	public ProductException(String string) {
+		super(string);
+	}
+
+}

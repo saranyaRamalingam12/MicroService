@@ -1,0 +1,9 @@
+package com.productandinventory.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.productandinventory.entity.Inventory;
+
+public interface InventoryRepo extends JpaRepository<Inventory, Long>{
+
+}

@@ -1,0 +1,14 @@
+package com.orderhistory.serviceinteraction;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.CartDTO;
+
+@Service
+public interface CartService {
+
+	CartDTO findByCartId(Long id);
+
+	void productBlockRemoval(Long id);
+
+}

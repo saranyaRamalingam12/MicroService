@@ -1,0 +1,12 @@
+package com.cart.serviceInteractionImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.ProductDTO;
+
+@Service
+public interface ProductService 
+{
+	public ProductDTO getProductById(Long id);
+
+}

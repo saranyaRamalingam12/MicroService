@@ -1,0 +1,9 @@
+package com.orderhistory.serviceinteraction;
+
+import com.orderhistory.dto.UserDTO;
+
+public interface LoginService {
+
+	UserDTO findUserById(Long userId);
+
+}

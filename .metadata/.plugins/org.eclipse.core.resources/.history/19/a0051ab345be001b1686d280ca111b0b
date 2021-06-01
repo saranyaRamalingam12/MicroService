@@ -1,0 +1,20 @@
+package com.orderhistory.serviceinteractionimp;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.ItemDTO;
+import com.orderhistory.serviceinteraction.ItemService;
+
+@Service
+public class ItemServiceImpl implements ItemService 
+{
+
+	@Override
+	public void removeRefernceOfItemAndAmountReductionInCart(List<ItemDTO> itemDTO) {
+		
+		
+	}
+
+}

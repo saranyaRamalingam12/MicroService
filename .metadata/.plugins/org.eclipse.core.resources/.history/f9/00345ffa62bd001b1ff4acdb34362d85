@@ -1,0 +1,14 @@
+package com.cart.serviceInteractionImpl;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.UserDTO;
+
+@Service
+public interface LoginService 
+{
+	public UserDTO  getUserById(Long id);
+
+	public UserDTO saveCartIdInUser(Long userId, Long cartId); 
+
+}

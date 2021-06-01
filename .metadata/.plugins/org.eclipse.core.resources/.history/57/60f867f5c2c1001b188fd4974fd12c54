@@ -1,0 +1,97 @@
+package com.login.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.login.dto.AdminLoginDTO;
+import com.login.dto.UserDTO;
+import com.login.entity.AdminLogin;
+import com.login.entity.User;
+import com.login.exceptionhandling.UserNotFoundException;
+import com.login.service.AdminLoginService;
+import com.login.service.UserService;
+
+
+@CrossOrigin(origins="http://localhost:4200")
+@RestController
+@RequestMapping("/api/order/login")
+public class LoginServiceController  //port 8081
+{
+	@Autowired  private AdminLogin adminLogin;
+	@Autowired	private User user;
+	@Autowired	private UserService loginService;
+	@Autowired	private UserDTO userDTO;
+	@Autowired  private AdminLoginService adminService;
+	
+	@PostMapping("/registerUser")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDto ) 
+	{
+			if(loginService.checkUserNameExists(userDto) != null)
+				throw new UserNotFoundException("User Name already Exists");
+			user=loginService.mapUserDtoToUserEntity(user,userDto);
+			loginService.saveUser(user);
+			userDTO=loginService.mapUserEntityToUserDTO(user, userDTO);
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+	
+	@PostMapping("/userLogin")
+	  public ResponseEntity<UserDTO> userLogin(@RequestBody UserDTO userDto )
+	{
+		String tempName=userDto.getName();
+		String tempPassword=userDto.getPassword();		
+		if(tempName!=null && tempPassword!=null)	{
+			user=loginService.checkUserLogin(tempName, tempPassword);
+			if(user==null)
+				throw new UserNotFoundException("UserName and Password doesnot exist");
+			userDTO=loginService.mapUserEntityToUserDTO(user, userDTO);
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	  }
+	
+	@PostMapping("/adminLogin")
+	public ResponseEntity<HttpStatus> adminLogin(@RequestBody AdminLoginDTO adminLoginDTO )
+	{
+		String tempEmail=adminLoginDTO.getEmail();
+		String tempPassword=adminLoginDTO.getPassword();		
+		if(tempEmail!=null && tempPassword!=null)	{
+			adminLogin=adminService.checkAdminLogin(tempEmail, tempPassword);
+			if(adminLogin==null) 
+				throw new UserNotFoundException("EmailId and Password doesnot exist");
+			return new ResponseEntity<>( HttpStatus.OK);
+		}
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	  }
+	
+	// Call from Cart Service
+	@GetMapping("/getUserById/{userId}")
+	public ResponseEntity<UserDTO> getUserByIdToOtherService (@PathVariable Long userId)
+	{
+			userDTO=loginService.findUserById(userId);
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+	
+	// Call from Cart Service
+	@PostMapping("/saveCartIdInUser")
+	public ResponseEntity<UserDTO> saveCartIdInUser (@RequestBody UserDTO userDto)
+	{
+			userDTO=loginService.saveCartIdInUser(userDto);
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+	}
+		
+	//call from OrderHistory and Payment
+	@PostMapping("/updateAddressInUser")
+	public  ResponseEntity<HttpStatus> updateAddress(@RequestBody UserDTO userDTO)
+	{
+			loginService.mapAddressDTOToAddressEntity(userDTO);
+			return new ResponseEntity<>( HttpStatus.OK);
+	}
+}

@@ -1,0 +1,6 @@
+package com.cart.exceptionhandling;
+
+public class DataReceivedErrorException extends RuntimeException {
+	
+
+}

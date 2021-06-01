@@ -1,0 +1,33 @@
+package com.cart.client;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.cart.dto.UserDTO;
+
+@Service
+public class LoginServiceImpl implements LoginService
+{
+	private static final Logger LOGGER=LoggerFactory.getLogger(LoginService.class);
+	@Autowired
+	RestTemplate restTemplate;
+
+	@Override
+	public UserDTO getUserById(Long id) {
+		LOGGER.info("Service Call to Login Service to get User");
+		String url="http://localhost:8081/api/order/login/getUserById/{id}";
+		return    restTemplate.getForObject(url, UserDTO.class,id);
+	}
+
+	@Override
+	public UserDTO saveCartIdInUser(UserDTO userDto) 
+	{
+		LOGGER.info("Service Call to Login Service to save CartID");
+		String url="http://localhost:8081/api/order/login/saveCartIdInUser";
+		return  restTemplate.postForObject(url,userDto, UserDTO.class);
+	}
+
+}

@@ -1,0 +1,17 @@
+package com.cart.dto;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class CartDTO 
+{
+	private Long id;
+	private double total;
+	private Long  userId;
+	private List<ItemDTO>itemDTO;
+	
+	
+
+}

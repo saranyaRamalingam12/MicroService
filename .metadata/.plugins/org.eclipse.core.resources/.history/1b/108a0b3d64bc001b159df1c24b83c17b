@@ -1,0 +1,13 @@
+package com.login.serviceinterface;
+
+import org.springframework.stereotype.Service;
+
+import com.login.entity.AdminLogin;
+
+@Service
+public interface AdminLoginService
+{
+	AdminLogin checkAdminLogin(String tempEmail, String tempPassword);
+	
+	Admin
+}

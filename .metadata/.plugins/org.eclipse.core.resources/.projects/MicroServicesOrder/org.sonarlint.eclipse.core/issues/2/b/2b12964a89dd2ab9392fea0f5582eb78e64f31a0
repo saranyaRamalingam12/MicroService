@@ -1,0 +1,20 @@
+
+Z
+java:S1068 ".Remove this unused "addressDTO" private field.(•¦¬åH†RMAJORZ
+CODE_SMELL
+\
+java:S3655n"7Call "Optional#isPresent()" before accessing the value.(°’¿ãH‡RMAJORZBUG
+v
+java:S1128"ERemove this unused import 'com.example.demo.dto.ProductPurchasedDTO'.(ñŒðïþÿÿÿÿHˆRMINORZ
+CODE_SMELL
+\
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±ÄøÿÿÿÿH‰RMINORZ
+CODE_SMELL
+o
+java:S1117I">Rename "addressDTO" which hides the field declared at line 32.(àÖ‹íøÿÿÿÿHŠRMAJORZ
+CODE_SMELL
+\
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒH‹RMINORZ
+CODE_SMELL
+g	java:S125c"<This block of commented-out lines of code should be removed.(ªÛÍüHŒRMAJORZ
+CODE_SMELL

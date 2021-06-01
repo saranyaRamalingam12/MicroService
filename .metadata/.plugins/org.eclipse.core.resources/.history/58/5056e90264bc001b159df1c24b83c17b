@@ -1,0 +1,18 @@
+package com.login.serviceimplementation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.login.entity.AdminLogin;
+import com.login.repository.AdminLoginRepo;
+
+public class AdminLoginServiceImpl 
+{
+	@Autowired
+	AdminLoginRepo repo;
+	
+	public AdminLogin checkAdminLogin(String tempEmail, String tempPassword) 
+	{
+		return repo.findByEmailAndPassword(tempEmail,tempPassword);
+	}
+
+}

@@ -1,0 +1,9 @@
+
+k
+java:S1128"@Remove this unused import 'com.example.demo.dto.UserDetailsDTO'.(ç”Ù—HdRMINORZ
+CODE_SMELL
+‰
+java:S1450"YRemove the "adminLogin" field and declare it as a local variable in the relevant methods.(¬žäÕýÿÿÿÿHeRMINORZ
+CODE_SMELL
+h	java:S1069"9Replace this use of System.out or System.err by a logger.(€®ôþúÿÿÿÿHfRMAJORZ
+CODE_SMELL

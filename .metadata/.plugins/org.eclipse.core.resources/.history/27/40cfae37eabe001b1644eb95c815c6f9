@@ -1,0 +1,9 @@
+package com.orderhistory.serviceinteraction;
+
+import com.orderhistory.dto.ProductDTO;
+
+public interface ProductService {
+
+	ProductDTO getProductById(Long id);
+
+}

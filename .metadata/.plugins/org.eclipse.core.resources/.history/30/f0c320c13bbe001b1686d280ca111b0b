@@ -1,0 +1,14 @@
+package com.orderhistory;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class OrderHistoryAndPaymentApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(OrderHistoryAndPaymentApplication.class, args);
+		System.out.println("In Order History");
+	}
+
+}

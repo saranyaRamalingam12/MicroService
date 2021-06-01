@@ -1,0 +1,36 @@
+#status = error
+#
+#appender.console.type = Console
+#appender.console.name = LogToConsole
+#appender.console.layout.type = PatternLayout
+#appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+#appender.file.type = File
+#appender.file.name = LogToFile
+#appender.file.fileName=logs/app.log
+#appender.file.layout.type=PatternLayout
+#appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+
+
+status = error
+name = Log4j2PropertiesConfig
+ 
+appenders = file,console
+ 
+appender.console.type = Console
+appender.console.name = LogToConsole
+appender.console.layout.type = PatternLayout
+appender.console.layout.pattern =%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta {%-5p}  [%t]   (%F:%L) - %m%n  
+
+
+
+appender.file.type = File
+appender.file.name = FileLogger
+appender.file.filename = C:/Users/saran/Desktop/TextFile/example.log
+appender.file.layout.type = PatternLayout
+appender.file.layout.pattern = %d{yyyy-MM-dd HH:mm:ss.SSS}  [%-5level] [%t] %c{1} - %msg%n
+ 
+rootLogger.level = info
+rootLogger.appenderRefs = file,console
+rootLogger.appenderRef.file.ref = FileLogger
+rootLogger.appenderRef.console.ref=LogToConsole

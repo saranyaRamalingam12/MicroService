@@ -1,0 +1,40 @@
+#name=PropertiesConfig
+#property.filename = /ProductCatalog/logs/propertieslogs.log
+#appenders = console, file
+#
+#appender.console.type = Console
+#appender.console.name = STDOUT
+#appender.console.layout.type = PatternLayout
+#appender.console.layout.pattern =  %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1} - %msg%n
+#
+#appender.file.type = File
+#appender.file.name = LOGFILE
+#appender.file.fileName=${filename}
+#appender.file.layout.type=PatternLayout
+#appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+#
+#loggers=file
+#logger.file.name=com.productcatalog
+#logger.file.level = debug
+#logger.file.appenderRefs = file
+#logger.file.appenderRef.file.ref = LOGFILE
+#
+#rootLogger.level = info
+#rootLogger.appenderRefs = stdout
+#rootLogger.appenderRef.stdout.ref = STDOUT
+#
+
+status = error
+name = Log4j2PropertiesConfig
+ 
+appenders = file
+ 
+appender.file.type = File
+appender.file.name = FileLogger
+appender.file.filename = logs/propertieslogs.log
+appender.file.layout.type = PatternLayout
+appender.file.layout.pattern = %d{yyyy-MM-dd HH:mm:ss.SSS}  [%-5level] [%t] %c{1} - %msg%n
+ 
+rootLogger.level = info
+rootLogger.appenderRefs = file
+rootLogger.appenderRef.file.ref = FileLogger

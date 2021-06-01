@@ -1,0 +1,36 @@
+package com.orderhistory.serviceimplementation;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.CartDTO;
+import com.orderhistory.dto.UserDTO;
+import com.orderhistory.dto.UserDetailsDTO;
+import com.orderhistory.serviceinterface.OrderService;
+
+@Service
+public class OrderServiceImpl implements OrderService 
+{
+	
+	@Autowired UserDetailsDTO userDetailsDTO;
+	@Autowired UserDTO userDTO;
+	
+	@Override
+	public UserDetailsDTO mapUserDTOToUserDetailsDTO(UserDTO userDTO, CartDTO cartDTO) {
+		userDetailsDTO.setAddressDTO(userDTO.getAddressDTO());
+		userDetailsDTO.setCartDTO(cartDTO);
+		userDetailsDTO.setEmail(userDTO.getEmail());
+		userDetailsDTO.setId(userDTO.getId());
+		userDetailsDTO.setName(userDTO.getName());
+		return userDetailsDTO;
+	}
+
+	@Override
+	public UserDTO mapUserDetailsDTOToUserDTO(UserDetailsDTO userDetailsDTO) {
+		userDTO.setAddressDTO(userDetailsDTO.getAddressDTO());
+		userDTO.setCartId(userDetailsDTO.getCartDTO().getId());
+		userDTO.setId(userDetailsDTO.getId());
+		return null;
+	}
+
+}

@@ -1,0 +1,20 @@
+package com.orderhistory.serviceinterface;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.CartDTO;
+import com.orderhistory.dto.UserDTO;
+import com.orderhistory.dto.UserDetailsDTO;
+import com.orderhistory.entity.OrderDetails;
+
+@Service
+public interface OrderService 
+{
+	
+	public UserDetailsDTO mapUserDTOToUserDetailsDTO(UserDTO userDTO,CartDTO cartDTO);
+
+	public UserDTO mapUserDetailsDTOToUserDTO(UserDetailsDTO userDetailsDTO);
+
+	public void saveOrderDetails(UserDetailsDTO userDetailsDTO); 
+
+}

@@ -1,0 +1,52 @@
+package com.cart.dto;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class SingleItemDTO 
+{
+	private Long id;
+	private double productTotal;
+	private int bookedQuantity;
+	private Long productId;
+	private Long  userId;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public double getProductTotal() {
+		return productTotal;
+	}
+	public void setProductTotal(double productTotal) {
+		this.productTotal = productTotal;
+	}
+	public int getBookedQuantity() {
+		return bookedQuantity;
+	}
+	public void setBookedQuantity(int bookedQuantity) {
+		this.bookedQuantity = bookedQuantity;
+	}
+	public Long getProductId() {
+		return productId;
+	}
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	@Override
+	public String toString() {
+		return "SingleItemDTO [id=" + id + ", productTotal=" + productTotal + ", bookedQuantity=" + bookedQuantity
+				+ ", productId=" + productId + ", userId=" + userId + "]";
+	}
+	
+	
+
+}

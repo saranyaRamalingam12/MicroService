@@ -1,0 +1,21 @@
+
+j
+java:S1226="EIntroduce a new variable instead of reusing the parameter "itemDTO2".(Ê¸÷°HúRMINORZBUG
+[
+java:S3655n"7Call "Optional#isPresent()" before accessing the value.(íØø*HûRMAJORZBUG
+i	java:S1065"9Replace this use of System.out or System.err by a logger.(Þ´öžùÿÿÿÿHüRMAJORZ
+CODE_SMELL
+i	java:S1066"9Replace this use of System.out or System.err by a logger.(Í¿žÅÿÿÿÿÿHýRMAJORZ
+CODE_SMELL
+g	java:S125|"<This block of commented-out lines of code should be removed.(Úæ÷…HþRMAJORZ
+CODE_SMELL
+e	java:S106˜"9Replace this use of System.out or System.err by a logger.(êËÉÖHÿRMAJORZ
+CODE_SMELL
+g	java:S125."<This block of commented-out lines of code should be removed.(©å±‡H€RMAJORZ
+CODE_SMELL
+g	java:S125K"<This block of commented-out lines of code should be removed.(í­Ü÷HRMAJORZ
+CODE_SMELL
+i	java:S1064"9Replace this use of System.out or System.err by a logger.(©ž„¤ûÿÿÿÿH‚RMAJORZ
+CODE_SMELL
+d	java:S106_"9Replace this use of System.out or System.err by a logger.(ŸÊÃHƒRMAJORZ
+CODE_SMELL

@@ -1,0 +1,99 @@
+package com.login.service.implementation;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.login.dto.AddressDTO;
+import com.login.dto.UserDTO;
+import com.login.entity.Address;
+import com.login.entity.User;
+import com.login.exceptionhandling.UserNotFoundException;
+import com.login.repository.UserRepo;
+import com.login.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService
+{
+
+	@Autowired	UserRepo userRepository;
+	@Autowired   UserDTO userDTO;
+	@Autowired   User user;
+	@Autowired   ModelMapper modelMapper;
+	@Autowired   Address address;
+	
+	@Override
+	public Optional<User> findId(Long id) {
+		return  userRepository.findById(id);
+	}
+
+	@Override
+	public User checkUserNameExists(UserDTO user) {
+		return userRepository.findByName(user.getName());
+	}
+
+	@Override
+	public void saveUser(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
+	public User mapUserDtoToUserEntity(User user1, UserDTO userDTO) 
+	{
+		user=new User();
+		user.setEmail(userDTO.getEmail());
+		user.setPassword(userDTO.getPassword());
+		user.setName(userDTO.getName());
+		Address address=modelMapper.map(userDTO.getAddressDTO(), Address.class);
+		user.setAddress(address);
+		return user;
+	}
+
+	@Override
+	public User checkUserLogin(String tempName, String tempPassword) {
+		return userRepository.findByNameAndPassword(tempName, tempPassword);
+	}
+
+	@Override
+	public UserDTO mapUserEntityToUserDTO(User user, UserDTO userDTO) 
+	{
+			if(user.getAddress()!=null){
+				AddressDTO addressDTO=modelMapper.map(user.getAddress(), AddressDTO.class);		
+				userDTO.setAddressDTO(addressDTO);
+			}
+			userDTO.setId(user.getId());
+			userDTO.setName(user.getName());
+			userDTO.setCartId(user.getCartId());
+			return userDTO;
+	}
+
+	@Override
+	public void mapAddressDTOToAddressEntity(UserDTO userDTO) {
+		
+		 address=modelMapper.map(userDTO.getAddressDTO(), Address.class);
+		 user=findId(userDTO.getId()).get();
+		 user.setAddress(address);
+		 userRepository.save(user);
+	}
+
+	//call from cart Service
+	@Override
+	public UserDTO findUserById(Long userId)
+	{
+		user=userRepository.findById(userId).orElseThrow(()->new UserNotFoundException(userId));
+	    return  mapUserEntityToUserDTO(user,userDTO);
+	}
+
+	//call from cart Service
+	@Override
+	public UserDTO saveCartIdInUser(UserDTO userDTO) 
+	{
+		 user=userRepository.findById(userDTO.getId()).orElseThrow(()->new UserNotFoundException(userDTO.getId()));
+		 user.setCartId(userDTO.getCartId());
+		 userRepository.save(user);
+		 return  mapUserEntityToUserDTO(user,userDTO);
+	}
+
+}

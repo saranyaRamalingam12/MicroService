@@ -1,0 +1,56 @@
+package com.login.serviceimplementation;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.login.dto.UserDTO;
+import com.login.entity.User;
+import com.login.repository.UserRepo;
+import com.login.serviceinterface.UserService;
+
+public class UserServiceImpl implements UserService
+{
+
+	@Autowired	UserRepo userRepository;
+	
+	@Override
+	public Optional<User> findId(Long id) {
+		return  userRepository.findById(id);
+	}
+
+	@Override
+	public User checkUserNameExists(User user) {
+		return userRepository.findByName(user.getName());
+	}
+
+	@Override
+	public void saveUser(User user) {
+		userRepository.save(user);
+		
+	}
+
+	@Override
+	public User mapUserDtoToUserEntity(User user, UserDTO userDTO) {
+		user.setEmail(userDTO.getEmail());
+		user.setPassword(userDTO.getPassword());
+		user.setName(userDTO.getName());
+		user.setAddress(userDTO.getAddress());
+		return user;
+	}
+
+	@Override
+	public User checkUserLogin(String tempName, String tempPassword) {
+		return userRepository.findByNameAndPassword(tempName, tempPassword);
+	}
+
+	@Override
+	public void mapAddressDTOToAddressEntity(UserDTO userDTO) {
+		 address=modelMapper.map(userDetailsDTO.getAddressDTO(), Address.class);
+		 user=findId(userDetailsDTO.getId()).get();
+		 user.setAddress(address);
+		 userRepository.save(user);
+		
+	}
+
+}

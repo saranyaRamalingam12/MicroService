@@ -1,0 +1,5 @@
+package com.cart.serviceinterface;
+
+public interface CartService {
+
+}

@@ -1,0 +1,8 @@
+package com.orderhistory.serviceinteractionimp;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class CartServiceImpl {
+
+}

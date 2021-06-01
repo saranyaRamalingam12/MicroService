@@ -1,0 +1,142 @@
+package com.cart.service.implementation;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cart.client.ProductService;
+import com.cart.dto.ItemDTO;
+import com.cart.dto.ProductDTO;
+import com.cart.dto.SingleItemDTO;
+import com.cart.dto.UserDTO;
+import com.cart.entity.Cart;
+import com.cart.entity.Item;
+import com.cart.repository.ItemRepo;
+import com.cart.service.CartService;
+import com.cart.service.ItemService;
+
+
+@Service
+public class ItemServiceImpl implements ItemService
+{
+	@Autowired Item item;
+	@Autowired UserDTO userDTO;
+	@Autowired CartService cartService;
+	@Autowired ItemRepo itemRepo; 
+	@Autowired ItemDTO itemDTO;
+	@Autowired ProductDTO productDTO;	
+	@Autowired ProductService productService;
+
+	@Override
+	public Item checkItem(SingleItemDTO singleItemDTO){
+		return itemRepo.findByProductId(singleItemDTO.getProductDTO().getId());
+	}
+	
+	@Override
+	public void deleteItemById(Long id) {
+		itemRepo.deleteById(id);
+	}
+
+	@Override
+	public void saveItem(Item item) {
+		itemRepo.save(item);		
+	}
+	
+	@Override
+	public Item findItemById(Long id) {
+		Optional<Item>optItem= itemRepo.findById(id);
+		if(optItem.isPresent()){
+			 item=optItem.get();
+			return item;
+		}
+		return null;
+	    
+	}
+	
+	@Override
+	public List<Item> addItemToCart(List<Item> list, SingleItemDTO singleItemDTO) 
+	{
+		item=new Item();
+		item=mapSingleITemDTOtoItem(item, singleItemDTO);
+		list.add(item);
+		//itemRepo.save(item);
+		return list;
+	}
+
+	@Override
+	public Item mapSingleITemDTOtoItem(Item item, SingleItemDTO singleItemDTO) 
+	{
+		item.setBookedQuantity(singleItemDTO.getBookedQuantity());
+		item.setProductId(singleItemDTO.getProductDTO().getId());
+		item.setProductTotal(singleItemDTO.getProductTotal());
+		//item.setcId(singleItemDTO.getUserLoginDTO().getId()); //set after saving the cart XXXXXXXXXXXXX
+		System.out.println("in ItemService");
+		return item;
+	}
+
+	@Override
+	public List<ItemDTO> getItemFromCart(Cart cart) 
+	{
+		List<Item>itemList=cart.getItem();
+ 		List<ItemDTO>itemdtoList=new ArrayList<>();
+ 		for(Item item1:itemList){
+ 			itemDTO=new ItemDTO();
+ 			itemDTO=mapItemToDTO(item1,itemDTO);//breaking the loop product-inventory 11111
+ 			itemdtoList.add(itemDTO);
+ 		}
+		return itemdtoList;
+	}
+
+	public ItemDTO mapItemToDTO(Item item, ItemDTO itemDTO) 
+	{
+		itemDTO.setBookedQuantity(item.getBookedQuantity());
+		itemDTO.setId(item.getId());
+		itemDTO.setProductTotal(item.getProductTotal());
+		productDTO=productService.getProductById(item.getProductId());
+		itemDTO.setProductDTO(productDTO);
+		return itemDTO;
+	}
+
+	@Override
+	public void removeRefernceOfItemAndAmountReductionInCart(Item item, Cart cart) 
+	{
+		System.out.println(cart.getTotal());
+		double total= cart.getTotal();
+	    total=total-item.getProductTotal();
+	    cart.setTotal(total);
+	    cartService.saveCart(cart);
+	    System.out.println();
+	}
+
+	@Override
+	public void productBlock(Cart cart) {
+		if(cart.getItem()==null){
+			throw new NullPointerException();
+		}
+		List<Item>list=cart.getItem();
+		for(Item item:list){
+			productService.productBlock(item.getBookedQuantity(),item.getProductId());
+		}
+	}
+
+	@Override
+	public void deleteListOfItems(List<Item> itemList) {
+		itemRepo.deleteAll(itemList);		
+	}
+
+
+	
+
+
+
+
+	
+	
+	
+
+}

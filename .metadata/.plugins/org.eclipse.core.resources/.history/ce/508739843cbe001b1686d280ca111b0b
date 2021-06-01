@@ -1,0 +1,12 @@
+package com.orderhistory.serviceinteraction;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.UserDTO;
+
+@Service
+public interface LoginService {
+
+	UserDTO findUserById(Long userId);
+
+}

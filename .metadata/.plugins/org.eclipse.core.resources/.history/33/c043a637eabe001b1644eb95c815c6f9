@@ -1,0 +1,23 @@
+package com.orderhistory.serviceinteractionimp;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.ProductDTO;
+import com.orderhistory.serviceinteraction.ProductService;
+
+
+public class ProductServiceImpl implements ProductService 
+{
+	@Autowired	RestTemplate restTemplate;
+	@Autowired   ProductDTO productDTO;
+	
+	@Override
+	public ProductDTO getProductById(Long id) {
+		String URL="http://localhost:8082/api/order/Product/editProduct/{id}";
+		 productDTO=  restTemplate.getForObject(URL, ProductDTO.class,id);
+		return productDTO;
+	}
+
+}

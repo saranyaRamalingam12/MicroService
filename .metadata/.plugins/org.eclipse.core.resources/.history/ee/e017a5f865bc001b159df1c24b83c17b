@@ -1,0 +1,24 @@
+package com.login.serviceinterface;
+
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import com.login.dto.UserDTO;
+import com.login.entity.User;
+
+@Service
+public interface UserService 
+{	
+	public Optional<User> findId(Long id);
+	
+	public User checkUserNameExists(User user);
+	
+	public void saveUser(User user);
+	
+	public UserDTO mapUserDtoToUser(User user, UserDTO userDTO, ModelMapper modelMapper);
+	
+	public User checkUserLogin(String tempName, String tempPassword);
+	
+}

@@ -1,0 +1,71 @@
+package com.productandinventory.serviceimplementation;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.productandinventory.dto.InventoryDTO;
+import com.productandinventory.dto.ProductDTO;
+import com.productandinventory.entity.Inventory;
+import com.productandinventory.entity.Product;
+import com.productandinventory.repository.InventoryRepo;
+import com.productandinventory.repository.ProductRepo;
+import com.productandinventory.serviceinterface.InventoryService;
+import com.productandinventory.serviceinterface.ProductService;
+
+public class ProductServiceImpl implements ProductService
+{
+	@Autowired	ProductRepo productRepository;
+	@Autowired	InventoryRepo inventoryRepository;
+	@Autowired	Inventory inventory;
+	@Autowired	Product product;
+	@Autowired	InventoryDTO inventoryDTO;
+	@Autowired 	InventoryService  inventoryService;
+
+	@Override
+	public void saveProduct(Product product) {
+		 productRepository.save(product);
+			inventory=product.getInventory();
+			inventory.setProduct(product);
+			inventoryService.saveInventory(inventory);
+	}
+
+	@Override
+	public List<Product> getProductList() {
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Optional<Product> getProductById(Long id) {
+		return productRepository.findById(id);
+	}
+
+	@Override
+	public List<Product> searchProduct(String keyword) {
+		 return productRepository.searchProduct(keyword);
+	}
+
+	@Override
+	public void deleteProductById(long id) {
+		product=productRepository.findById(id).get();
+		inventory=product.getInventory();
+		inventory.setProduct(null);
+		productRepository.deleteById(id);
+		
+	}
+
+	@Override
+	public ProductDTO mapProductToDTO(ProductDTO productDTO, Product product, ModelMapper modelMapper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Product mapDtoToProduct(ProductDTO productDTO, Product product, ModelMapper modelMapper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,16 @@
+package com.cart.dto;
+
+public class Snippet {
+	private Long id;
+		private String productName;
+		private String description;
+		private String image;
+		private double productPrice;
+		private int blockCount;
+	
+		//bidirectional
+		@JoinColumn(name="inventory_id")
+		@OneToOne
+		private Inventory inventory;
+}
+

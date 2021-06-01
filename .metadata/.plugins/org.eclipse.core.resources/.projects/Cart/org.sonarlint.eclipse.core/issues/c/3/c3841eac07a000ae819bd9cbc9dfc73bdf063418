@@ -1,0 +1,12 @@
+
+g
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8¾ÕûÃ›/H»1RMINORZ
+CODE_SMELL
+l	java:S106¥"9Replace this use of System.out or System.err by a logger.(¼ß“8äÏ½š›/H¼1RMAJORZ
+CODE_SMELL
+_
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿH½1RMINORZ
+CODE_SMELL
+[
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½ÒşÿÿÿÿH¾1RMINORZ
+CODE_SMELL

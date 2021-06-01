@@ -1,0 +1,133 @@
+package com.cart.serviceimplementation;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.CartDTO;
+import com.cart.dto.ItemDTO;
+import com.cart.dto.SingleItemDTO;
+import com.cart.dto.UserDTO;
+import com.cart.entity.Cart;
+import com.cart.entity.Item;
+import com.cart.repository.CartRepo;
+import com.cart.serviceInteractionImpl.LoginService;
+import com.cart.serviceinterface.CartService;
+import com.cart.serviceinterface.ItemService;
+
+
+
+@Service
+public class CartServiceImpl implements CartService
+{
+	@Autowired	LoginService loginService;
+	@Autowired    ItemService itemService;
+	@Autowired    CartRepo cartRepo;
+	@Autowired    Cart cart1;
+	
+   //calling Login Service
+	@Override
+	public UserDTO getUserFromSingleItem(SingleItemDTO singleItemDTO) 
+	{
+		if(loginService.getUserById(singleItemDTO.getUserId())!=null){
+			return loginService.getUserById(singleItemDTO.getUserId());
+		}
+		return null;
+	}
+
+	@Override
+	public double calcTotalAmount(Cart cart) 
+	{
+		List<Item>list=cart.getItem();
+		double totalAmount=0;
+		for(Item item1:list){
+			totalAmount+=item1.getProductTotal();
+		}
+		return totalAmount;
+	}
+
+	@Override
+	public Cart savingNewUserToCart(SingleItemDTO singleItemDTO, Cart cart, UserDTO userDTO)
+	{
+		List<Item>list=new ArrayList<>();
+		list=itemService.addItemToCart(list,singleItemDTO);
+		cart1.setItem(list);
+		cart1.setUserId(userDTO.getId());
+		cart1.setTotal(calcTotalAmount(cart1));
+		cartRepo.save(cart1);
+		return cart1;		
+	}
+
+	@Override
+	public UserDTO saveCartInUser(Cart cart, UserDTO userDTO) 
+	{
+		userDTO.setCartId(cart.getId());
+		loginService.saveCartIdInUser(userDTO);
+		return userDTO;
+	}
+
+	@Override
+	public Cart findCartById(Long id) {
+		Optional<Cart>optCart=cartRepo.findById(id);
+		if(optCart.isPresent()){
+			 Cart cart=optCart.get();
+			return cart;
+		}
+		return null;
+	}
+
+	@Override
+	public Cart addItemToCart(SingleItemDTO singleItemDTO, Cart cart) {
+		List<Item>list=cart.getItem();
+		list=itemService.addItemToCart(list,singleItemDTO);
+		cart.setItem(list);
+		cart.setTotal(calcTotalAmount(cart));
+		cartRepo.save(cart);
+		return cart;
+	}
+
+	@Override
+	public CartDTO mapCartToDTOIR(Cart cart, CartDTO cartDTO, ModelMapper modelMapper) 
+	{
+		if(cart.getItem()==null) {
+			throw new NullPointerException();
+		}
+		System.out.println("In MapCart11");
+		List<ItemDTO>itemList=itemService.getItemFromCart(cart);
+		System.out.println("In MapCart");
+		cartDTO.setId(cart.getId());
+		cartDTO.setItemDTO(itemList);
+		cartDTO.setTotal(cart.getTotal());
+		cartDTO.setUserId(cart.getUserId());
+		System.out.println("In MapCart12");
+		return cartDTO;
+	}
+
+	@Override
+	public Cart saveCart(Cart cart) {
+	return cartRepo.save(cart);
+	}
+
+	@Override
+	public Cart deleteItem(Item item, Cart cart) {
+		if(cart.getItem()==null) {
+			throw new NullPointerException();
+		}
+		List<Item>itemList=cart.getItem();
+		itemList.remove(item);
+		cart.setItem(itemList);
+		saveCart(cart);
+		itemService.deleteItemById(item.getId());
+		return cart;
+	}
+
+	
+	
+}
+

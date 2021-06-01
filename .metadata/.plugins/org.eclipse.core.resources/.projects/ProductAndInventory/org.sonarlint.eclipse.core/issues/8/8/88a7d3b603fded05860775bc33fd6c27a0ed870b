@@ -1,0 +1,13 @@
+
+b
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8È®»š/H­.RMINORZ
+CODE_SMELL
+g
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8ÁÊ›/H°.RMINORZ
+CODE_SMELL
+s
+java:S1117;";Rename "product" which hides the field declared at line 36.(˜ıÚıúÿÿÿÿ8¨á‡Ê›/H¯.RMAJORZ
+CODE_SMELL
+‰
+java:S1128"QRemove this unused import 'org.springframework.web.bind.annotation.RequestParam'.(Â¬À·ùÿÿÿÿ8È®»š/H®.RMINORZ
+CODE_SMELL

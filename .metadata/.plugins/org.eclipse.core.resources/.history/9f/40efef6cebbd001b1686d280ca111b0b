@@ -1,0 +1,22 @@
+package com.cart.serviceInteractionInterface;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.cart.dto.ProductDTO;
+import com.cart.serviceInteractionImpl.ProductService;
+
+@Service
+public class ProductServiceImpl implements ProductService 
+{
+	@Autowired	RestTemplate restTemplate;
+	
+	@Override
+	public ProductDTO getProductById(Long id) {
+		String URL="http://localhost:8082/api/order/Product/editProduct/{id}";
+		ProductDTO productDTO=   new RestTemplate().getForObject(URL, ProductDTO.class,2);
+		return productDTO;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.productandinventory.exceptionhandling;
+
+public class ErrorMessage {
+
+}

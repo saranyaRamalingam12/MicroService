@@ -1,0 +1,18 @@
+package com.orderhistory.serviceinteractionimp;
+
+import org.springframework.stereotype.Service;
+
+import com.orderhistory.dto.UserDTO;
+import com.orderhistory.serviceinteraction.LoginService;
+
+@Service
+public class LoginServiceImp implements LoginService
+{
+
+	@Override
+	public UserDTO findUserById(Long userId) {
+		
+		return null;
+	}
+
+}

@@ -1,0 +1,8 @@
+package com.orderhistory.serviceinterface;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public interface OrderService {
+
+}

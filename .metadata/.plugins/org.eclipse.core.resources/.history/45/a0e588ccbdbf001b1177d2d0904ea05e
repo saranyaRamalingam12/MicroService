@@ -1,0 +1,22 @@
+package com.cart.client;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.ProductDTO;
+
+@Service
+public interface ProductService 
+{
+	public ProductDTO getProductById(Long id);
+
+	public void productBlock(int bookedQuantity, Long productId);
+
+	public void productBlockRemoval(Long productId, int bookedQuantity);
+
+	public void productBlockRemovalAfterFailure(Long productId, int bookedQuantity);
+
+	public void productBlockRemoval1(ProductDTO productDTO);
+
+	
+
+}

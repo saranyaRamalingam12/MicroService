@@ -1,0 +1,5 @@
+package com.productandinventory.dto;
+
+public class ProductDTO {
+
+}

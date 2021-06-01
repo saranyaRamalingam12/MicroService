@@ -1,0 +1,25 @@
+package com.productandinventory.serviceinterface;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+
+import com.productandinventory.dto.ProductDTO;
+import com.productandinventory.entity.Product;
+
+public interface ProductService
+{
+	public void saveProduct(Product product) ;
+	
+	public  List<Product> getProductList();
+	
+	public Optional<Product> getProductById(Long id) ;
+	
+	public List<Product> searchProduct(String keyword);
+	
+	public void deleteProductById(long id);
+	
+	public ProductDTO mapProductToDTO(ProductDTO productDTO, Product product, ModelMapper modelMapper);
+
+}

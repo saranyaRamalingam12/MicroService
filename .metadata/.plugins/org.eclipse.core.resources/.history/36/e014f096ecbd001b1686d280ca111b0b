@@ -1,0 +1,16 @@
+package com.cart.serviceInteractionImpl;
+
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.cart.dto.ProductDTO;
+
+@Service
+public interface ProductService 
+{
+	public ProductDTO getProductById(Long id);
+
+	public void productBlock(Map<String, String> map);
+
+}

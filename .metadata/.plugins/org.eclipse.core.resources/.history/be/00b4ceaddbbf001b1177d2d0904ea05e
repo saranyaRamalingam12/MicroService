@@ -1,0 +1,256 @@
+package com.cart.controller;
+
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cart.dto.AddressDTO;
+import com.cart.dto.CartDTO;
+import com.cart.dto.ItemDTO;
+import com.cart.dto.ProductDTO;
+import com.cart.dto.SingleItemDTO;
+import com.cart.dto.UserDTO;
+import com.cart.entity.Cart;
+import com.cart.entity.Item;
+import com.cart.service.CartService;
+import com.cart.service.ItemService;
+
+@CrossOrigin(origins="http://localhost:4200")
+@RestController
+@RequestMapping("/api/order/ItemAndCart")
+public class CartController //port 8084
+{
+	AddressDTO addressDTO;
+	@Autowired	UserDTO userDTO;
+	@Autowired	Item item;
+	@Autowired	Cart cart;
+	@Autowired	CartService cartService;
+	@Autowired	ItemService itemService;
+	@Autowired  	ModelMapper modelMapper; 
+	@Autowired	ProductDTO productDTO;
+	@Autowired   CartDTO cartDTO;
+
+	@PostMapping("/savingItemToCart")
+	public ResponseEntity<CartDTO> savingItemAndCart (@RequestBody SingleItemDTO singleItemDTO)
+	{
+		try
+		{
+			if(singleItemDTO.getUserId()==null)
+			{
+				throw new NullPointerException();
+			}
+			if(cartService.getUserFromSingleItem(singleItemDTO)==null) {
+				throw new NullPointerException();
+			}
+			userDTO=cartService.getUserFromSingleItem(singleItemDTO);
+			if(userDTO.getCartId()==null)//new User check
+			{
+				cart=cartService.savingNewUserToCart(singleItemDTO,cart,userDTO);
+				cartService.saveCartInUser(cart,userDTO);			    
+				System.out.println(cart.toString()+"##############################");
+			}
+			else
+			{
+				if(cartService.checkItem(singleItemDTO,userDTO.getCartId())==null)
+				{
+					System.out.println("%%%%%****8");
+					 cart=cartService.findCartById(userDTO.getCartId());
+					 System.out.println("%%%%%");
+					 cart=cartService.addItemToCart(singleItemDTO,cart);
+					 System.out.println("******************");
+				}else
+				{
+					System.out.println("%%%%%****811111111");
+					item=cartService.checkItem(singleItemDTO,userDTO.getCartId());
+					item.setBookedQuantity(singleItemDTO.getBookedQuantity());
+					item.setProductTotal(singleItemDTO.getProductTotal());
+					itemService.saveItem(item);
+					cart=cartService.findCartById(userDTO.getCartId());
+					cart.setTotal(cartService.calcTotalAmount(cart));
+					cartService.saveCart(cart);
+				}
+			}
+			cartDTO=cartService.mapCartToDTOIR(cart, cartDTO, modelMapper);//taking cart 
+			System.out.println("In MapCartOut");
+			 return new ResponseEntity<>(cartDTO,HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+		
+	@GetMapping("/getCart/{id}")
+	 public ResponseEntity<CartDTO> getCart(@PathVariable("id") Long id)
+	 {
+		try
+		{
+			System.out.println("%%%%%%%%%%%55In GETCART");
+			 if(cartService.findCartById(id)==null){
+				 throw new NullPointerException();
+			 }
+			 System.out.println(id.getClass().getName()+"))))))))))))))))))))))))))))");
+			 cart=cartService.findCartById(id);
+			 System.out.println(cart.toString());
+			 cartDTO=cartService.mapCartToDTOIR(cart, cartDTO, modelMapper);
+			 return new ResponseEntity<>(cartDTO, HttpStatus.OK);
+		}catch (Exception e) 
+		{
+			e.printStackTrace();
+			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+		}
+	 }
+	
+	
+	@DeleteMapping("removeItemFromCart/{itemId}/{cartId}")
+	public  ResponseEntity<CartDTO> deleteItem(@PathVariable("itemId") Long itemId,@PathVariable("cartId") Long cartId)
+	{
+		try {
+			if(itemService.findItemById(itemId)==null) {
+				throw new NullPointerException();
+			}
+			item=itemService.findItemById(itemId);
+			cart=cartService.findCartById(cartId);
+			itemService.removeRefernceOfItemAndAmountReductionInCart(item,cart);
+			cart=cartService.deleteItem(item,cart);
+			cartDTO=cartService.mapCartToDTOIR(cart, cartDTO, modelMapper);
+			return new ResponseEntity<>(cartDTO, HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	@PostMapping("/productBlock")
+	public ResponseEntity<HttpStatus> blockProduct(@RequestBody CartDTO cartDTO)
+	{
+		try {
+//			if(cartService.findCartById(id)==null){
+//				throw  new NullPointerException();
+//			}
+//			cart=cartService.findCartById(id);
+//			if(cart.getItem()==null) {
+//				throw new NullPointerException();
+//			}
+			itemService.productBlock(cartDTO);
+			return new ResponseEntity<>( HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//call from OrderHistory And Payment
+	@GetMapping("/findCartById/{id}")
+	public ResponseEntity<CartDTO> findCartById(@PathVariable("id") Long id)
+	{
+		try {
+			cart=cartService.findCartById(id);
+			cartDTO=cartService.mapCartToDTOIR(cart, cartDTO, modelMapper);
+			return new ResponseEntity<>(cartDTO, HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//call from OrderHistory And Payment
+	@PostMapping("/productBlockRemoval")
+	public ResponseEntity<HttpStatus> blockProductRemoval(@RequestBody CartDTO cartDTO)
+	{
+		try {
+			if(cartService.findCartById(cartDTO.getId())==null){
+				throw  new NullPointerException();
+			}
+		//	cart=cartService.findCartById(id);
+			if(cartDTO.getItemDTO()==null) {
+				throw new NullPointerException();
+			}
+			System.out.println("In productLockRemoval cart controler"+cartDTO.toString());
+			cartService.blockRemoval(cartDTO);
+			return new ResponseEntity<>( HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	//call from OrderHistory And Payment
+		@PostMapping("/productBlockRemovalPaymentFailure")
+		public ResponseEntity<HttpStatus> blockProductRemovalAfterFailure(@RequestBody CartDTO cartDTO)
+		{
+			try {
+				if(cartService.findCartById(cartDTO.getId())==null){
+					throw  new NullPointerException();
+				}
+				//cart=cartService.findCartById(id);
+				if(cartDTO.getItemDTO()==null) {
+					throw new NullPointerException();
+				}
+				cartService.blockRemovalAfterFailure(cartDTO);
+				return new ResponseEntity<>( HttpStatus.OK);
+			}catch (Exception e) {
+				e.printStackTrace();
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+	
+	//call from OrderHistory
+	@PostMapping("/removeRefernceOfItem")
+	public ResponseEntity<HttpStatus> removeRefernceOfItem(@RequestBody CartDTO cartDTO)
+	{
+		try {
+			System.out.println(cartDTO.toString());
+			cart=cartService.findCartById(cartDTO.getId());
+			List<ItemDTO>itemList=cartDTO.getItemDTO();
+			double total= cart.getTotal();
+			for(ItemDTO item1:itemList) {
+			    total=total-item1.getProductTotal();
+			}
+			cart.setTotal(total);
+			cartService.saveCart(cart);
+			List<Item>list=itemService.mapItemDtoToItem(cartDTO);
+//			for(Item item:list) {
+//				itemService.removeRefernceOfItemAndAmountReductionInCart(item, cart);
+//			}
+			//cart.setItem(null);//change this while adding single buy option
+			itemService.deleteListOfItems(list);
+			return new ResponseEntity<>( HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+   }	
+	
+//	@GetMapping("/getList")
+//	public void getProductList()
+//	{
+//		
+//		String URL="http:localhost:8083/api/order/ProductCatalog/getProductList";
+//		ResponseEntity<List<ProductDTO>> product =
+//				new RestTemplate().exchange("http://localhost:8083/api/order/ProductCatalog/getProductList",HttpMethod.GET, null, new ParameterizedTypeReference<List<ProductDTO>>() { });
+//		List<ProductDTO> rates = product.getBody();
+//	    for(ProductDTO obj:rates)
+//	    {
+//	    	System.out.println(obj.getProductName());
+//	    }
+//		
+//		String URL="http://localhost:8083/api/order/ProductCatalog/editProduct/{id}";
+//		ProductDTO product=   new RestTemplate().getForObject(URL, ProductDTO.class,2);
+//		System.out.println(product.getInventoryDTO().getQuantity());
+//	}
+
+	
+	
+
+}

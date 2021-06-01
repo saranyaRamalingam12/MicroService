@@ -1,0 +1,29 @@
+package com.cart.client;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.cart.dto.UserDTO;
+
+@Service
+public class LoginServiceImpl implements LoginService
+{
+	@Autowired
+	RestTemplate restTemplate;
+
+	@Override
+	public UserDTO getUserById(Long id) {
+		String url="http://localhost:8081/api/order/login/getUserById/{id}";
+		return    restTemplate.getForObject(url, UserDTO.class,id);
+	}
+
+	@Override
+	public UserDTO saveCartIdInUser(UserDTO userDto) 
+	{
+		
+		String url="http://localhost:8081/api/order/login/saveCartIdInUser";
+		return  restTemplate.postForObject(url,userDto, UserDTO.class);
+	}
+
+}

@@ -1,0 +1,20 @@
+
+d
+java:S1128"8Remove this unused import 'javax.persistence.FetchType'.(‡¯¿HĞRMINORZ
+CODE_SMELL
+t
+java:S1128"HRemove this unused import 'com.fasterxml.jackson.annotation.JsonIgnore'.(ş‘‹„HÑRMINORZ
+CODE_SMELL
+€
+java:S1128"ORemove this unused import 'com.fasterxml.jackson.annotation.JsonBackReference'.(»Ôœ¿ıÿÿÿÿHÒRMINORZ
+CODE_SMELL
+i
+java:S1128"8Remove this unused import 'javax.persistence.Transient'.(Õ„¹ùÿÿÿÿÿHÓRMINORZ
+CODE_SMELL
+f
+java:S1128":Remove this unused import 'javax.persistence.CascadeType'.( ì¤ÊHÔRMINORZ
+CODE_SMELL
+a
+java:S1128
+"5Remove this unused import 'javax.persistence.MapsId'.(²Û¢ˆHÕRMINORZ
+CODE_SMELL

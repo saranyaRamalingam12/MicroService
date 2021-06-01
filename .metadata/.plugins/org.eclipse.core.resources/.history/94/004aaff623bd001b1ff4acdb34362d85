@@ -1,0 +1,63 @@
+package com.cart.dto;
+
+public class Product 
+{
+	private Long id;
+	private String productName;
+	private String description;
+	private String image;
+	private double productPrice;
+	private int blockCount;
+	private Inventory inventory;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public double getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(double productPrice) {
+		this.productPrice = productPrice;
+	}
+	public int getBlockCount() {
+		return blockCount;
+	}
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+	public Inventory getInventory() {
+		return inventory;
+	}
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productName=" + productName + ", description=" + description + ", image="
+				+ image + ", productPrice=" + productPrice + ", blockCount=" + blockCount + ", inventory=" + inventory
+				+ "]";
+	}
+
+}

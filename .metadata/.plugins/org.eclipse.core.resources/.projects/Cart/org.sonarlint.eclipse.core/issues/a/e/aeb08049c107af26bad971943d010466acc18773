@@ -1,0 +1,19 @@
+
+s
+java:S1117~";Rename "itemDTO" which hides the field declared at line 34.(»¨óüÿÿÿÿ8¡¶“›/H©,RMAJORZ
+CODE_SMELL
+_
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿH®,RMINORZ
+CODE_SMELL
+€
+java:S1128"MRemove this unused import 'com.cart.exceptionhandling.CartNotFoundException'.(—Øë8‰ àÂ›/H¨,RMINORZ
+CODE_SMELL
+g
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8‰ àÂ›/H­,RMINORZ
+CODE_SMELL
+[
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½ÒşÿÿÿÿH«,RMINORZ
+CODE_SMELL
+i
+java:S1117o"8Rename "item" which hides the field declared at line 30.(©¼¹üÿÿÿÿH¦,RMAJORZ
+CODE_SMELL

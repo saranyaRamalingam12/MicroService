@@ -1,0 +1,41 @@
+package com.orderhistory.client;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.CartDTO;
+
+@Service
+public class CartServiceImpl implements CartService
+{
+	@Autowired RestTemplate restTemplate;
+	@Autowired CartDTO cartDTO;	
+	private static final Logger LOGGER=LoggerFactory.getLogger(CartServiceImpl.class);
+	
+	@Override
+	public CartDTO findByCartId(Long cartId) 
+	{
+		LOGGER.info("Service Call to Cart Service to get Address");
+		String url="http://localhost:8084/api/order/ItemAndCart/getCart/{cartId}";
+		return  restTemplate.getForObject(url, CartDTO.class,cartId);
+		 
+	}
+
+	@Override
+	public void productBlockRemoval(CartDTO cartDTO) 
+	{
+		String url="http://localhost:8084/api/order/ItemAndCart/productBlockRemoval";
+		restTemplate.postForObject(url,cartDTO, CartDTO.class);
+	}
+
+	@Override
+	public void productBlockRemovalPaymentFailure(CartDTO cartDTO) {
+		String url="http://localhost:8084/api/order/ItemAndCart/productBlockRemovalPaymentFailure";
+		restTemplate.postForObject(url,cartDTO, CartDTO.class);
+		
+	}
+
+}

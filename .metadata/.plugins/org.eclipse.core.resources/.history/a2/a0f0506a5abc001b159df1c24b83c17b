@@ -1,0 +1,7 @@
+package com.login.entity;
+
+public class User 
+{
+	
+
+}

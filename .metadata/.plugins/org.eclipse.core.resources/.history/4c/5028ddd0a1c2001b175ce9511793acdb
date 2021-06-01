@@ -1,0 +1,23 @@
+package com.orderhistory.client;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.CartDTO;
+
+
+@Service
+public class ItemServiceImpl implements ItemService 
+{	@Autowired RestTemplate restTemplate;
+	@Autowired CartDTO cartDTO;	
+	
+	@Override
+	public void removeRefernceOfItemAndAmountReductionInCart(CartDTO cartDTO) 
+	{
+		String url="http://localhost:8084/api/order/ItemAndCart/removeRefernceOfItem";
+		restTemplate.postForObject(url,cartDTO, CartDTO.class);
+		
+	}
+
+}

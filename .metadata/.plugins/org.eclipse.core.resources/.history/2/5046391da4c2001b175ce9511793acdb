@@ -1,0 +1,52 @@
+package com.cart.client;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.cart.dto.ProductDTO;
+
+@Service
+public class ProductServiceImpl implements ProductService 
+{
+	@Autowired	RestTemplate restTemplate;
+	@Autowired   ProductDTO productDTO;
+	private static final Logger LOGGER=LoggerFactory.getLogger(ProductServiceImpl.class);
+	
+	@Override
+	public ProductDTO getProductById(Long id) {
+		LOGGER.info("Service Call to Product Service to get Product");
+		String url="http://localhost:8082/api/order/Product/editProduct/{id}";
+		return restTemplate.getForObject(url, ProductDTO.class,id);
+	}
+
+	@Override
+	public void productBlock(int bookedQuantity, Long productId) {
+		LOGGER.info("Service Call to Product Service to block Product ");
+		String url="http://localhost:8082/api/order/Product/productBlock/{bookedQuantity}/{productId}";
+		restTemplate.getForObject(url, String.class,bookedQuantity,productId);
+		
+	}
+
+	
+	@Override
+	public void productBlockRemoval(ProductDTO productDTO) 
+	{
+		LOGGER.info("Service Call to unBlock the product after successful payment");
+		String url="http://localhost:8082/api/order/Product/productBlockRemoval";
+		restTemplate.postForObject(url,productDTO, ProductDTO.class);
+	}
+
+	@Override
+	public void productBlockRemovalAfterFailure(ProductDTO productDTO) {
+		LOGGER.info("Service Call  to unBlock the product due to  payment failure");
+		String url="http://localhost:8082/api/order/Product/productBlockRemovalPaymentFailure";
+		restTemplate.postForObject(url,productDTO, ProductDTO.class);
+		
+	}
+
+	
+}

@@ -1,0 +1,36 @@
+package com.orderhistory.serviceinteractionimp;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.orderhistory.dto.CartDTO;
+import com.orderhistory.dto.UserDTO;
+import com.orderhistory.dto.UserDetailsDTO;
+import com.orderhistory.serviceinteraction.LoginService;
+
+@Service
+public class LoginServiceImpl implements LoginService
+{
+	
+	@Autowired RestTemplate restTemplate;
+	@Autowired UserDTO userDTO;
+
+	@Override
+	public UserDTO findUserById(Long userId) {
+		
+		String URL="http://localhost:8081/api/order/login/getUserById/{id}";
+		UserDTO userDTO=   restTemplate.getForObject(URL, UserDTO.class,userId);
+		return userDTO;
+	}
+
+	@Override
+	public void mapAddressDTOToEntity(UserDTO userDTO) 
+	{
+		
+		String URL="http://localhost:8081/api/order/login/updateAddressInUser";
+		restTemplate.getForObject(URL,UserDTO.class );
+		
+	}
+
+}

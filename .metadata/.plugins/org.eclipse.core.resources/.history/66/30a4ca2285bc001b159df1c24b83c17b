@@ -1,0 +1,5 @@
+package com.productandinventory.entity;
+
+public class Product {
+
+}

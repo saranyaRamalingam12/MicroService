@@ -1,0 +1,5 @@
+package com.cart.serviceInteractionImpl;
+
+public interface LoginService {
+
+}

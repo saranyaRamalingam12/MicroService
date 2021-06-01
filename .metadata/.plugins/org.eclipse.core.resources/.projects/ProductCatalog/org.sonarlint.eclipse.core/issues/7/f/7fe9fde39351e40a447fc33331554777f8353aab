@@ -1,0 +1,8 @@
+
+l	java:S125I"<This block of commented-out lines of code should be removed.(•Ü£¦şÿÿÿÿH’.RMAJORZ
+CODE_SMELL
+s
+java:S12260"GIntroduce a new variable instead of reusing the parameter "productDTO".(Ç¢±ª8¬ã€œ/H–.RMINORZBUG
+g
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8ûªÓİ›/H‘.RMINORZ
+CODE_SMELL
